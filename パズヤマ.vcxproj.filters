@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="manager">
+      <UniqueIdentifier>{2aeda8f0-d5cf-4df7-b1d2-d7cd99909d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE">
+      <UniqueIdentifier>{88f1e3a3-2256-44d0-bfc5-19eac226df46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE\base">
+      <UniqueIdentifier>{4af51700-4903-4600-839e-bf68b2713761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CONTAINER">
+      <UniqueIdentifier>{2ca606b7-fed3-4d34-b915-0c448928b2b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{dec0eb65-378d-45a4-b238-988183225773}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GAME.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GAME_OBJECT.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SCENE.h">
+      <Filter>SCENE\base</Filter>
+    </ClInclude>
+    <ClInclude Include="CONTAINER.h">
+      <Filter>CONTAINER</Filter>
+    </ClInclude>
+    <ClInclude Include="VECTOR2.h" />
+    <ClInclude Include="fps.h" />
+    <ClInclude Include="TITLE.h">
+      <Filter>SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="PLAY.h">
+      <Filter>SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="GAME_OVER.h">
+      <Filter>SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="GAME_CLEAR.h">
+      <Filter>SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="DROP.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GAME.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GAME_OBJECT.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SCENE.cpp">
+      <Filter>SCENE\base</Filter>
+    </ClCompile>
+    <ClCompile Include="CONTAINER.cpp">
+      <Filter>CONTAINER</Filter>
+    </ClCompile>
+    <ClCompile Include="VECTOR2.cpp" />
+    <ClCompile Include="TITLE.cpp">
+      <Filter>SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="PLAY.cpp">
+      <Filter>SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="GAME_OVER.cpp">
+      <Filter>SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="GAME_CLEAR.cpp">
+      <Filter>SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="DROP.cpp" />
+  </ItemGroup>
+</Project>
