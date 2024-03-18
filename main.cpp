@@ -1,9 +1,5 @@
-#include "GAME.h"
-
-#define GameWidth 1000
-#define GameHeight 1000
-#define GameTitle "PazYama"
-#define GameColor 32
+#include "DxLib.h"
+#include "Game.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -14,17 +10,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetMainWindowText(GameTitle);
 	SetAlwaysRunFlag(TRUE);
 
-	//SetWindowIconID();
-	if (DxLib_Init() == -1) {
+	Game game;
+	bool success = game.Initialize();
 
-		return -1;
+	if (success) {
+
+		game.RunLoop();
 	}
-	SetDrawScreen(DX_SCREEN_BACK); //ダブルバッファリング
-	SetBackgroundColor(100, 100, 100);
+	game.Shutdown();
 
-	GAME game;
-	game.run();
 
-	DxLib_End();
 	return 0;
 }

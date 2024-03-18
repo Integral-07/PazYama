@@ -1,45 +1,163 @@
-#include "GAME.h"
-#include "TITLE.h"
-#include "PLAY.h"
-#include "key.h"
-#include "CONTAINER.h"
+#include "Game.h"
+#include "Actor.h"
+#include "Dxlib.h"
+#include "iter.h"
+#include "fps.h"
+#include "Drop.h"
 
-
-GAME::GAME()
+bool Game::Initialize()
 {
-	Container = new CONTAINER;
-	Scenes[TITLE_ID] = new TITLE(this);
-	Scenes[PLAY_ID] = new PLAY(this);
-	Scenes[RESULT_ID] = new RESULT(this);
-	CurSceneId = TITLE_ID;
+    if (DxLib_Init() == -1) {
+
+        return false;
+    }
+
+    Actor* a;
+    for (int i = 0; i < PuzSize; i++) {
+        for (int j = 0; j < PuzSize; j++) {
+
+            a = new Drop(this);
+            a->SetPosition(VECTOR2(a->GetScale() * (j + 1), a->GetScale() * (i + 1)));
+        }
+    }
+
+
+    fps::initDeltaTime();
+
+    return true;
 }
 
-GAME::~GAME()
+void Game::RunLoop()
 {
-	for (int i = 0; i < NUM_SCENES; i++) {
+    while (ProcessMessage() == 0 && ClearDrawScreen() == 0) {
 
-		delete Scenes[i];
-	}
+        ProcessInput();
+        UpdateGame();
+        GenerateOutput();
+    }
 }
 
-void GAME::run()
+void Game::Shutdown()
 {
-	Container->load();
-	Scenes[TITLE_ID]->create();
+    while (!mActors.empty()) {
 
-	while (ProcessMessage() == 0 && ClearDrawScreen() == 0) {
+        delete mActors.back();
+    }
 
-		Scenes[CurSceneId]->proc();
-		ScreenFlip();
-
-		KeyUpdate();
-	}
+    DxLib_End();
 }
 
-void GAME::changeScene(SCENE_ID sceneId)
+void Game::AddActor(Actor* actor)
 {
-	if (KeyClick(KEY_INPUT_A)) {
+    if (mUpdatingActors) {
+        
+        mPendingActors.emplace_back(actor);
+    }
+    else {
 
-		CurSceneId = sceneId;
-	}
+        mActors.emplace_back(actor);
+    }
 }
+
+void Game::RemoveActor(Actor* actor)
+{
+    auto iter = std::find(mActors.begin(), mActors.end(), actor);
+    if (iter != mActors.end()) {
+
+        auto iter_end = mActors.end() - 1;
+        iter_swap(iter, iter_end);
+        mActors.pop_back();
+    }
+}
+
+void Game::AddSprite(SpriteComponent* sprite)
+{
+    int myDrawOrder = sprite->GetDrawOrder();
+    auto iter = mSprites.begin();
+    for (; iter != mSprites.end(); iter++) {
+
+        if (myDrawOrder < (*iter)->GetDrawOrder()) {
+
+            break;
+        }
+    }
+
+    mSprites.insert(iter, sprite);
+}
+
+void Game::RemoveSprite(SpriteComponent* sprite)
+{
+    auto iter = std::find(mSprites.begin(), mSprites.end(), sprite);
+    mSprites.erase(iter);
+}
+
+void Game::ProcessInput()
+{
+    mUpdatingActors = true;
+    for (auto actor : mActors) {
+
+        actor->ProcessInput();
+    }
+
+    mUpdatingActors = false;
+}
+
+void Game::UpdateGame()
+{
+    fps::setDeltaTime();
+
+    mUpdatingActors = true;
+    for (auto actor : mActors) {
+
+        actor->Update();
+    }
+
+    mUpdatingActors = false;
+
+    for (auto pending : mPendingActors) {
+
+        mActors.emplace_back(pending);
+    }
+
+    mPendingActors.clear();
+
+    std::vector<class Actor*> deadActors;
+    for (auto actor : mActors) {
+
+        if (actor->GetState() == Actor::EDead) {
+
+            deadActors.emplace_back(actor);
+        }
+    }
+
+    for (auto actor : deadActors) {
+
+        delete actor;
+    }
+}
+
+void Game::GenerateOutput()
+{
+    for (auto sprite : mSprites) {
+
+        sprite->Draw();
+    }
+    ScreenFlip();
+}
+
+void Game::AddScore(int score)
+{
+    mScore += score;
+}
+
+void Game::AddDrop(Drop* drop)
+{
+    mDrops.emplace_back();
+}
+
+void Game::RemoveDrop(Drop* drop)
+{
+    mDrops.pop_back();
+}
+
+

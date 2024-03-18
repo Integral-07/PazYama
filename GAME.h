@@ -1,32 +1,49 @@
 #pragma once
-#include "Dxlib.h"
-#include "VECTOR2.h"
+#include <vector>
+#include "SpriteComponent.h"
 
-class GAME {
+#define GameWidth 1000
+#define GameHeight 1000
+#define GameColor 32
+#define GameTitle "ƒpƒYƒ„ƒ}"
+#define PuzSize 10
 
-	//container
+class Game
+{
+public:
+
+	bool Initialize();
+	void RunLoop();
+	void Shutdown();
+
+	void AddActor(class Actor* actor);
+	void RemoveActor(class Actor* actor);
+
+	void AddSprite(class SpriteComponent* sprite);
+	void RemoveSprite(class SpriteComponent* sprite);
+
 private:
-	class CONTAINER* Container;
-public:
-	class CONTAINER* container() { return Container; }
+	void ProcessInput();
+	void UpdateGame();
+	void GenerateOutput();
+
+	std::vector<class Actor*> mActors;
+	std::vector<class SpriteComponent*> mSprites;
+
+	bool mUpdatingActors;
+	std::vector<class Actor*> mPendingActors; //’Ç‰Á‚ð‰„Šú‚µ‚½Actor
+
 
 public:
-	enum SCENE_ID {
+	void AddScore(int score);
 
-		TITLE_ID,
-		PLAY_ID,
-		RESULT_ID,
-		NUM_SCENES
-	};
+	void AddDrop(class Drop* drop);
+	void RemoveDrop(class Drop* drop);
+	std::vector<class Drop*>& GetDrop() { return mDrops; }
+
 private:
-	class SCENE* Scenes[NUM_SCENES];
-	SCENE_ID CurSceneId;
+	int mScore;
 
-public:
-	GAME();
-	~GAME();
-
-	void run();
-
-	void changeScene(SCENE_ID sceneId);
+	std::vector<class Drop*> mDrops;
 };
+

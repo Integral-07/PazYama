@@ -1,75 +1,65 @@
+#include <math.h>
 #include "VECTOR2.h"
-#include "math.h"
-
-VECTOR2::VECTOR2()
-{
+VECTOR2::VECTOR2(float x, float y) {
+    this->x = x;	this->y = y;
+}
+void VECTOR2::set(float x, float y) {
+    this->x = x;    this->y = y;
+}
+VECTOR2 VECTOR2::operator+(const VECTOR2& v) const {
+    return VECTOR2(x + v.x, y + v.y);
+}
+VECTOR2 VECTOR2::operator-(const VECTOR2& v) const {
+    return VECTOR2(x - v.x, y - v.y);
+}
+VECTOR2 VECTOR2::operator*(float f) const {
+    return VECTOR2(x * f, y * f);
+}
+VECTOR2 VECTOR2::operator/(float f) const {
+    return VECTOR2(x / f, y / f);
+}
+VECTOR2 VECTOR2::operator-() const {
+    return VECTOR2(-x, -y);
+}
+void VECTOR2::operator+=(const VECTOR2& v) {
+    x += v.x;
+    y += v.y;
+}
+void VECTOR2::operator-=(const VECTOR2& v) {
+    x -= v.x;
+    y -= v.y;
+}
+void VECTOR2::operator*=(float f) {
+    x *= f;
+    y *= f;
+}
+void VECTOR2::operator/=(float f) {
+    x /= f;
+    y /= f;
 }
 
-VECTOR2::VECTOR2(float _x, float _y)
-	: x(_x), y(_y)
-{
+VECTOR2 VECTOR2::normalize() {
+    float l = sqrtf(x * x + y * y);
+    if (l != 0.0f) {
+        x /= l;
+        y /= l;
+    }
+    return VECTOR2(x, y);
 }
 
-VECTOR2::VECTOR2(const VECTOR2& vec)
-{
-	this->x = vec.x;
-	this->y = vec.y;
+
+
+//‚QŽŸŒ³ƒxƒNƒgƒ‹‚Ìˆê”ÊŠÖ”-------------------------------------------------------
+VECTOR2 operator*(float f, const VECTOR2& v) {
+    return VECTOR2(f * v.x, f * v.y);
+}
+VECTOR2 normalize(const VECTOR2& a) {
+    float l = sqrtf(a.x * a.x + a.y * a.y);
+    if (l != 0.0f)
+        return VECTOR2(a.x / l, a.y / l);
+    else
+        return a;
 }
 
-inline VECTOR2 VECTOR2::normalize(VECTOR2& vec)
-{
-	float root_len = vec.x * vec.x + vec.y * vec.y;
-	return VECTOR2(vec.x / sqrt(root_len), vec.y / sqrt(root_len));
-}
 
-inline VECTOR2 VECTOR2::operator+(const VECTOR2& vec)
-{
-	return VECTOR2(this->x + vec.x, this->y + vec.y);
-}
 
-inline VECTOR2 VECTOR2::operator-(const VECTOR2& vec)
-{
-	return VECTOR2(this->x - vec.x, this->y - vec.y);
-}
-
-inline VECTOR2 VECTOR2::operator*(float k)
-{
-	return VECTOR2(this->x * k, this->y * k);
-}
-
-inline VECTOR2 VECTOR2::operator/(float k)
-{
-	return VECTOR2(this->x / k, this->y / k);
-}
-
-inline VECTOR2& VECTOR2::operator+=(const VECTOR2& vec)
-{
-	this->x += vec.x;
-	this->y += vec.y;
-
-	return *this;
-}
-
-inline VECTOR2& VECTOR2::operator-=(const VECTOR2& vec)
-{
-	this->x -= vec.x;
-	this->y -= vec.y;
-
-	return *this;
-}
-
-inline VECTOR2& VECTOR2::operator*=(float k)
-{
-	this->x *= k;
-	this->y *= k;
-
-	return *this;
-}
-
-inline VECTOR2& VECTOR2::operator/=(float k)
-{
-	this->x /= k;
-	this->y /= k;
-
-	return *this;
-}

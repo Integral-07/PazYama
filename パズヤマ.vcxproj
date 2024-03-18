@@ -19,29 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CONTAINER.h" />
-    <ClInclude Include="DROP.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Drop.h" />
     <ClInclude Include="fps.h" />
-    <ClInclude Include="GAME.h" />
-    <ClInclude Include="GAME_CLEAR.h" />
-    <ClInclude Include="GAME_OBJECT.h" />
-    <ClInclude Include="GAME_OVER.h" />
-    <ClInclude Include="PLAY.h" />
-    <ClInclude Include="SCENE.h" />
-    <ClInclude Include="TITLE.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="iter.h" />
+    <ClInclude Include="MoveComponent.h" />
+    <ClInclude Include="RectComponent.h" />
+    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="VECTOR2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CONTAINER.cpp" />
-    <ClCompile Include="DROP.cpp" />
-    <ClCompile Include="GAME.cpp" />
-    <ClCompile Include="GAME_CLEAR.cpp" />
-    <ClCompile Include="GAME_OBJECT.cpp" />
-    <ClCompile Include="GAME_OVER.cpp" />
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Drop.cpp" />
+    <ClCompile Include="fps.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PLAY.cpp" />
-    <ClCompile Include="SCENE.cpp" />
-    <ClCompile Include="TITLE.cpp" />
+    <ClCompile Include="MoveComponent.cpp" />
+    <ClCompile Include="RectComponent.cpp" />
+    <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="VECTOR2.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

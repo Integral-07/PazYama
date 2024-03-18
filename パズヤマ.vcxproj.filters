@@ -1,80 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClInclude Include="fps.h" />
+    <ClInclude Include="Game.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="iter.h" />
+    <ClInclude Include="Actor.h">
+      <Filter>Actor\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Component\base</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Component\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponent.h">
+      <Filter>Component\Move\base</Filter>
+    </ClInclude>
+    <ClInclude Include="RectComponent.h">
+      <Filter>Component\Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="Drop.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="VECTOR2.h">
+      <Filter>VECTOR2</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Game.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor\base</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component\base</Filter>
+    </ClCompile>
+    <ClCompile Include="fps.cpp" />
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Component\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveComponent.cpp">
+      <Filter>Component\Move\base</Filter>
+    </ClCompile>
+    <ClCompile Include="RectComponent.cpp">
+      <Filter>Component\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="Drop.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="VECTOR2.cpp">
+      <Filter>VECTOR2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <Filter Include="manager">
-      <UniqueIdentifier>{2aeda8f0-d5cf-4df7-b1d2-d7cd99909d4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SCENE">
-      <UniqueIdentifier>{88f1e3a3-2256-44d0-bfc5-19eac226df46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SCENE\base">
-      <UniqueIdentifier>{4af51700-4903-4600-839e-bf68b2713761}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CONTAINER">
-      <UniqueIdentifier>{2ca606b7-fed3-4d34-b915-0c448928b2b8}</UniqueIdentifier>
+      <UniqueIdentifier>{5b227ed6-8b7f-4118-bafb-addb506df565}</UniqueIdentifier>
     </Filter>
     <Filter Include="Actor">
-      <UniqueIdentifier>{dec0eb65-378d-45a4-b238-988183225773}</UniqueIdentifier>
+      <UniqueIdentifier>{3cf4a1cb-8cff-4edb-84d6-e6f6a81f6bb8}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GAME.h">
-      <Filter>manager</Filter>
-    </ClInclude>
-    <ClInclude Include="GAME_OBJECT.h">
-      <Filter>manager</Filter>
-    </ClInclude>
-    <ClInclude Include="SCENE.h">
-      <Filter>SCENE\base</Filter>
-    </ClInclude>
-    <ClInclude Include="CONTAINER.h">
-      <Filter>CONTAINER</Filter>
-    </ClInclude>
-    <ClInclude Include="VECTOR2.h" />
-    <ClInclude Include="fps.h" />
-    <ClInclude Include="TITLE.h">
-      <Filter>SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="PLAY.h">
-      <Filter>SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="GAME_OVER.h">
-      <Filter>SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="GAME_CLEAR.h">
-      <Filter>SCENE</Filter>
-    </ClInclude>
-    <ClInclude Include="DROP.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="GAME.cpp">
-      <Filter>manager</Filter>
-    </ClCompile>
-    <ClCompile Include="GAME_OBJECT.cpp">
-      <Filter>manager</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>manager</Filter>
-    </ClCompile>
-    <ClCompile Include="SCENE.cpp">
-      <Filter>SCENE\base</Filter>
-    </ClCompile>
-    <ClCompile Include="CONTAINER.cpp">
-      <Filter>CONTAINER</Filter>
-    </ClCompile>
-    <ClCompile Include="VECTOR2.cpp" />
-    <ClCompile Include="TITLE.cpp">
-      <Filter>SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="PLAY.cpp">
-      <Filter>SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="GAME_OVER.cpp">
-      <Filter>SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="GAME_CLEAR.cpp">
-      <Filter>SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="DROP.cpp" />
+    <Filter Include="Actor\base">
+      <UniqueIdentifier>{b467f7a9-bdf1-43f2-8980-47df22f7c9bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{7f81bfc6-c20f-424f-8fd2-fc360d3dc0ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\base">
+      <UniqueIdentifier>{29955b8d-f96a-4707-be78-9bae51613b68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Sprite">
+      <UniqueIdentifier>{c8a95eb9-8325-420b-8d86-126476317336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Move">
+      <UniqueIdentifier>{ed9749a0-e094-4bd5-a132-2699fd3cc298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Move\base">
+      <UniqueIdentifier>{531c46ef-d41b-49c6-bd8b-5e4c13285650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Rect">
+      <UniqueIdentifier>{e9fc9b12-702a-4857-afd9-6cfe697f8d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VECTOR2">
+      <UniqueIdentifier>{26793bd1-e923-471e-8a0a-5807d0a9b9fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -1,24 +1,21 @@
 #pragma once
-#include "GAME_OBJECT.h"
-class DROP :
-    public GAME_OBJECT
+#include "Actor.h"
+
+class Drop :
+    public Actor
 {
 public:
-    struct DATA {
+    Drop(class Game* game);
 
-        int img;
-        VECTOR2 pos;
-        float scale;
-    };
+    void UpdateActor() override;
+    void SetSpeed(float speed);
+    void SetDirection(const VECTOR2& direction);
+
 private:
-    DATA Drop;
+    class RectComponent* mRect;
 
-public:
-    DROP(class GAME* game);
-    
-    void create();
-    void init();
-    void update();
-    void draw();
+    class MoveComponent* mMc;
+
+    bool mSelected;
 };
 
