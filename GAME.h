@@ -6,7 +6,7 @@
 #define GameHeight 1000
 #define GameColor 32
 #define GameTitle "ƒpƒYƒ„ƒ}"
-#define PuzSize 10
+constexpr int PuzSize = 7;
 
 class Game
 {
@@ -37,13 +37,8 @@ private:
 public:
 	void AddScore(int score);
 
-	void AddDrop(class Drop* drop);
-	void RemoveDrop(class Drop* drop);
-	std::vector<class Drop*>& GetDrop() { return mDrops; }
-
 private:
+	
 	int mScore;
-
-	std::vector<class Drop*> mDrops;
 };
 

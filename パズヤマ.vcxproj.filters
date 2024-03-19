@@ -30,6 +30,9 @@
     <ClInclude Include="VECTOR2.h">
       <Filter>VECTOR2</Filter>
     </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="VECTOR2.cpp">
       <Filter>VECTOR2</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

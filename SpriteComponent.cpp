@@ -17,10 +17,11 @@ SpriteComponent::~SpriteComponent()
 void SpriteComponent::Draw()
 {
 	VECTOR2 pos = mOwner->GetPosition();
-	float scale = mOwner->GetScale();
+	float scaleW = mOwner->GetScaleW();
+	float scaleH = mOwner->GetScaleH();
 
 	DrawExtendGraph(pos.x, pos.y, 
-		pos.x + scale, pos.y + scale, mImg, true);
+		pos.x + scaleW, pos.y + scaleH, mImg, true);
 }
 
 void SpriteComponent::SetImage(int img)

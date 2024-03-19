@@ -2,22 +2,51 @@
 #include "MoveComponent.h"
 #include "SpriteComponent.h"
 #include "RectComponent.h"
+#include "Game.h"
 #include "DxLib.h"
+#include <string>
 
-Drop::Drop(Game* game) 
-	: Actor(game), mSelected(false)
+
+Drop::Drop(Game* game, int kind) 
+	: Actor(game), mSelected(false), mPositionOnBoard(0,0), mKindOfDrop((DROP_KIND)kind)
 {
-	SetScale(70);
+	SetScaleW(70);
+	SetScaleH(70);
 
-	auto sc = new SpriteComponent(this);
-	sc->SetImage(LoadGraph("Assets\\Drop01.jpeg"));
+	auto sc = new SpriteComponent(this, 150);
+	//sc->SetImage(LoadGraph("Assets\\drop05.jpeg"));
+
+	
+	switch ((DROP_KIND)kind) {
+	case GRAPE:
+		sc->SetImage(LoadGraph("Assets\\drop00.jpeg"));
+		break;
+	case PEACH:
+		sc->SetImage(LoadGraph("Assets\\drop01.jpeg"));
+		break;
+	case FUJI:
+		sc->SetImage(LoadGraph("Assets\\drop02.jpeg"));
+		break;
+	case CRYSTAL:
+		sc->SetImage(LoadGraph("Assets\\drop03.jpeg"));
+		break;
+	case TEMP1:
+		sc->SetImage(LoadGraph("Assets\\drop04.jpeg"));
+		break;
+	case TEMP2:
+		sc->SetImage(LoadGraph("Assets\\drop05.jpeg"));
+		break;
+	}
+	
+	
+	
 	
 	mMc = new MoveComponent(this);
 	mMc->SetSpeed(100);
 
 	mRect = new RectComponent(this, 110);
-	mRect->SetHalfWidth(mScale/2);
-	mRect->SetHalfHeight(mScale/2);
+	mRect->SetHalfWidth(mScaleW/2);
+	mRect->SetHalfHeight(mScaleH/2);
 }
 
 void Drop::UpdateActor()
@@ -38,7 +67,7 @@ void Drop::UpdateActor()
 	if (mSelected) {
 
 		DrawBox(mPosition.x, mPosition.y,
-			mPosition.x + mScale, mPosition.y + mScale, 
+			mPosition.x + mScaleW, mPosition.y + mScaleH, 
 			GetColor(0, 255, 0), true);
 	}
 }
@@ -52,4 +81,16 @@ void Drop::SetDirection(const VECTOR2& direction)
 {
 	mMc->SetDirection(direction);
 }
+
+
+bool Drop::EnableToDrop()
+{
+	if (((int)mPosition.x + 1, (int)mPosition.y) == NONE) {
+
+		return true;
+	}
+
+	return false;
+}
+
 

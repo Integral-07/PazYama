@@ -29,8 +29,10 @@ public:
 	const VECTOR2& GetPosition() const { return mPosition; }
 	void SetPosition(const VECTOR2& pos) { mPosition = pos; }
 
-	float GetScale() const { return mScale; }
-	void SetScale(float scale) { mScale = scale; }
+	float GetScaleW() const { return mScaleW; }
+	float GetScaleH() const { return mScaleH; }
+	void SetScaleW(float scale) { mScaleW = scale; }
+	void SetScaleH(float scale) { mScaleH = scale; }
 
 	class Game* GetGame() { return mGame; }
 
@@ -41,7 +43,8 @@ protected:
 	State mState;
 
 	VECTOR2 mPosition;
-	float mScale;
+	float mScaleW;
+	float mScaleH;
 
 	class Game* mGame;
 

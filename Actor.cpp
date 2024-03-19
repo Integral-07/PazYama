@@ -3,7 +3,7 @@
 #include "Game.h"
 
 Actor::Actor(Game* game)
-	: mGame(game), mState(EActive), mScale(1.0f)
+	: mGame(game), mState(EActive), mScaleW(1.0f), mScaleH(1.0f)
 {
 	mGame->AddActor(this);
 }

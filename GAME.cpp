@@ -4,6 +4,8 @@
 #include "iter.h"
 #include "fps.h"
 #include "Drop.h"
+#include "Board.h"
+#include <random>
 
 bool Game::Initialize()
 {
@@ -13,14 +15,18 @@ bool Game::Initialize()
     }
 
     Actor* a;
+    
+    srand(time(NULL));
     for (int i = 0; i < PuzSize; i++) {
         for (int j = 0; j < PuzSize; j++) {
 
-            a = new Drop(this);
-            a->SetPosition(VECTOR2(a->GetScale() * (j + 1), a->GetScale() * (i + 1)));
+            
+            a = new Drop(this, rand() % Drop::NUM_DROPS);
+            a->SetPosition(VECTOR2(a->GetScaleW() * (j + 1), a->GetScaleH() * (i + 1)));
         }
     }
 
+    Board* b = new Board(this);
 
     fps::initDeltaTime();
 
@@ -149,15 +155,4 @@ void Game::AddScore(int score)
 {
     mScore += score;
 }
-
-void Game::AddDrop(Drop* drop)
-{
-    mDrops.emplace_back();
-}
-
-void Game::RemoveDrop(Drop* drop)
-{
-    mDrops.pop_back();
-}
-
 
