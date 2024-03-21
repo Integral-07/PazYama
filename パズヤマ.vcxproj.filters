@@ -33,6 +33,8 @@
     <ClInclude Include="Board.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Key.h" />
+    <ClInclude Include="Selector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -67,6 +69,8 @@
     <ClCompile Include="Board.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Key.cpp" />
+    <ClCompile Include="Selector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="manager">

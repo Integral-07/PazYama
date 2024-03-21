@@ -3,16 +3,13 @@
 #include "DxLib.h"
 #include <random>
 
+#if 0
 Board::Board(Game* game) : Actor(game), mPosition(0,0)
 {
-	SetScaleW(168 * 2);
-	SetScaleH(282 * 2);
 
-	SetPosition(VECTOR2(100, 100));
 	auto sc = new SpriteComponent(this, 110);
 	sc->SetImage(LoadGraph("Assets\\Board.jpeg"));
 
-	
 }
 
 void Board::UpdateActor()
@@ -109,14 +106,23 @@ void Board::GenerateDropBoard()
 {
 	srand(time(NULL));
 
-	for (int i = 1; i < PuzSize + 1;i++) {
-		for (int j = 1; j < PuzSize + 1;j++) {
+	for (int i = 0; i < PuzSize + 2;i++) {
+		for (int j = 0; j < PuzSize + 2;j++) {
+
+			if (i == 0 || i == PuzSize + 1 || j == 0 || j == PuzSize + 1) {
+
+				auto a = new Drop(mGame, Drop::SENTINEL);
+				a->SetPosition(VECTOR2(i, j));
+				mDropBoard[(PuzSize + 2) * i + j] = a;
+
+				continue;
+			}
 
 			int k = rand() % Drop::NUM_DROPS;
 
 			auto a = new Drop(mGame, k);
 			a->SetPosition(VECTOR2(i, j));
-			mDropBoard[PuzSize * i + j] = a;
+			mDropBoard[(PuzSize + 2) * i + j] = a;
 		}
 	}
 }
@@ -133,3 +139,5 @@ void Board::FillBlank()
 		}
 	}
 }
+
+#endif

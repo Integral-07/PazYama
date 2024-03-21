@@ -3,6 +3,7 @@
 #include "Drop.h"
 #include "Game.h"
 
+#if 0
 class Board :
     public Actor
 {
@@ -18,7 +19,6 @@ public:
 
     void GenerateNoneAlignedBoard(); //揃ってないボードに修正
     
-    /*あとでprivate*/void GenerateDropBoard();        //ドロップの分散保証なしボード生成
 private:
     bool IsAlign(bool isDelete);       //揃ってる判定
     void GenerateNewDrop(int line, int kind);
@@ -32,3 +32,4 @@ private:
     VECTOR2 mPosition;
 };
 
+#endif

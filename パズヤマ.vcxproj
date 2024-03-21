@@ -27,8 +27,10 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="iter.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="RectComponent.h" />
+    <ClInclude Include="Selector.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="VECTOR2.h" />
   </ItemGroup>
@@ -40,9 +42,11 @@
     <ClCompile Include="fps.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="RectComponent.cpp" />
+    <ClCompile Include="Selector.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="VECTOR2.cpp" />
   </ItemGroup>

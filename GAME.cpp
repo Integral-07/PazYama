@@ -4,7 +4,7 @@
 #include "iter.h"
 #include "fps.h"
 #include "Drop.h"
-#include "Board.h"
+#include "Selector.h"
 #include <random>
 
 bool Game::Initialize()
@@ -14,19 +14,33 @@ bool Game::Initialize()
         return false;
     }
 
-    Actor* a;
+    Drop* a;
     
     srand(time(NULL));
-    for (int i = 0; i < PuzSize; i++) {
-        for (int j = 0; j < PuzSize; j++) {
+    for (int i = 0; i < PuzSize + 2; i++) {
+        for (int j = 0; j < PuzSize + 2; j++) {
 
-            
+            if (i == 0 || i == PuzSize + 1 || j == 0 || j == PuzSize + 1) {
+
+                auto a = new Drop(this, Drop::SENTINEL);
+                a->SetPosition(VECTOR2(a->GetScaleW() * (j + 1), a->GetScaleH() * (i + 1)));
+                a->SetPositionOnBoard(VECTOR2(i, j));
+                mDrops.emplace_back(a);
+
+                continue;
+            }
+
             a = new Drop(this, rand() % Drop::NUM_DROPS);
             a->SetPosition(VECTOR2(a->GetScaleW() * (j + 1), a->GetScaleH() * (i + 1)));
+            a->SetPositionOnBoard(VECTOR2(i, j));
+            mDrops.emplace_back(a);
         }
     }
 
-    Board* b = new Board(this);
+    auto sr = new Selector(this);
+    sr->SetPosition(VECTOR2(0, 0));
+    sr->SetScaleW(70);
+    sr->SetScaleH(70);
 
     fps::initDeltaTime();
 
@@ -45,9 +59,11 @@ void Game::RunLoop()
 
 void Game::Shutdown()
 {
+
     while (!mActors.empty()) {
 
         delete mActors.back();
+
     }
 
     DxLib_End();
@@ -136,6 +152,7 @@ void Game::UpdateGame()
         }
     }
 
+
     for (auto actor : deadActors) {
 
         delete actor;
@@ -154,5 +171,17 @@ void Game::GenerateOutput()
 void Game::AddScore(int score)
 {
     mScore += score;
+}
+
+void Game::DeleteDrop(Drop* drop)
+{
+    auto iter = std::find(mDrops.begin(), mDrops.end(), drop);
+    if (iter != mDrops.end()) {
+
+        //auto iter_end = mDrops.end() - 1;
+        //iter_swap(iter, iter_end);
+        //mDrops.pop_back();
+        mDrops.erase(iter);
+    }
 }
 

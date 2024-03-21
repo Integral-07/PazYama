@@ -9,7 +9,7 @@ public:
 
 	enum State {
 
-		EActive, EPause, EDead
+		EActive, EPause, EOper, EDead
 	};
 
 	Actor(class Game* game);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include "RectComponent.h"
 
 class Drop :
     public Actor
@@ -10,16 +11,10 @@ public:
     void UpdateActor() override;
     void SetSpeed(float speed);
     void SetDirection(const VECTOR2& direction);
+    void SetPositionOnBoard(const VECTOR2& pos) { mPositionOnBoard = pos; }
 
 public:
-    const VECTOR2& GetPositionOnBoard() const { return mPositionOnBoard; }
-    int GetKind() const { return mKindOfDrop; }
-    void SetKind(int kind) { mKindOfDrop = (DROP_KIND)kind; }
-
-    bool EnableToDrop();  //落ちれる判定
-    
     enum DROP_KIND {
-
         NONE = -1,
 
         GRAPE,     //紫
@@ -32,12 +27,25 @@ public:
 
         SENTINEL   //番兵
     };
+
+    const VECTOR2& GetPositionOnBoard() const { return mPositionOnBoard; }
+    DROP_KIND GetKind() const { return mKindOfDrop; }
+    void SetKind(int kind) { mKindOfDrop = (DROP_KIND)kind; }
+
+    RectComponent* GetRect() const { return mRect; }
+    
+
 private:
 
     DROP_KIND mKindOfDrop;
     VECTOR2 mPositionOnBoard;    //自分がボードのどの行・列にいるか
 
-    bool mSelected;
+    bool mSelectedFlag;
+    bool mFallFlag;
+    bool mAligned;
+
+    int CheckDir(int row, int line, int dir_row, int dirline);
+    bool IsAligned();
 
 private:
     class RectComponent* mRect;
