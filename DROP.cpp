@@ -8,6 +8,7 @@
 #include "DxLib.h"
 #include <string>
 #include <random>
+#include "Key.h"
 
 
 Drop::Drop(Game* game, int kind) 
@@ -44,6 +45,7 @@ Drop::Drop(Game* game, int kind)
 	
 	mMc = new MoveComponent(this);
 	mMc->SetSpeed(100);
+	mMc->SetDirection(VECTOR2(0, 1));
 
 	mRect = new RectComponent(this, 110);
 	mRect->SetHalfWidth(mScaleW/2);
@@ -52,7 +54,18 @@ Drop::Drop(Game* game, int kind)
 
 void Drop::UpdateActor()
 {
+	/*
+	if (mKindOfDrop != SENTINEL && mGame->GetKind(mPositionOnBoard.x + 1, mPositionOnBoard.y) == NONE) {
 
+		mGame->SetKind(mPositionOnBoard.x, mPositionOnBoard.y, NONE); //自分の今いる行列をNONEにする
+		mMc->SetSpeed(300.0f);
+		if (Intersect(mRect, mBelowDrop->GetRect())) {
+
+			mMc->SetSpeed(0.0f);
+			mGame->SetKind(mBelowDrop->GetPositionOnBoard().x - 1, mPositionOnBoard.y, mKindOfDrop);
+			
+		}
+	}
 	if (mFallFlag) {
 
 		mMc->SetSpeed(100);
@@ -79,11 +92,12 @@ void Drop::UpdateActor()
 			mFallFlag = false;
 		}
 	}
+	*/
 
 	if (mSelectedFlag) {
 
-		SetScaleW(70 * 1.2);
-		SetScaleH(70 * 1.2);
+		SetScaleW(70 * 1.1);
+		SetScaleH(70 * 1.1);
 
 		
 	}
@@ -93,16 +107,30 @@ void Drop::UpdateActor()
 		SetScaleH(70);
 	}
 
-	IsAligned();
 
-	if (mState == EActive) {
+	if (mGame->GetGameState() == Game::EComb) {
 
 		if (mAligned) {
 
 			SetState(EDead);
-			//mGame->DeleteDrop(this);
+			mGame->SetKind(mPositionOnBoard.x, mPositionOnBoard.y, NONE);
 		}
+
+		if (!IsAligned()) {
+
+			mGame->SetGameState(Game::EPuz);
+		}
+
 	}
+
+	IsAligned();
+
+	
+}
+
+void Drop::ActorInput()
+{
+	
 }
 
 void Drop::SetSpeed(float speed)
@@ -115,19 +143,34 @@ void Drop::SetDirection(const VECTOR2& direction)
 	mMc->SetDirection(direction);
 }
 
+void ExchangeDrops(class Game* game, Drop* a, Drop* b)
+{
+	VECTOR2 temp_pos = a->GetPosition();
+	VECTOR2 temp_posOnb = a->GetPositionOnBoard();
+
+
+	a->SetPosition(b->GetPosition());
+	a->SetPositionOnBoard(b->GetPositionOnBoard());
+
+	b->SetPosition(temp_pos);
+	b->SetPositionOnBoard(temp_posOnb);
+	
+
+
+	game->ExchangeDrops(a->GetPositionOnBoard(), b->GetPositionOnBoard());
+}
+
 int Drop::CheckDir(int row, int line, int dir_row, int dir_line)
 {
 	int num = 1;
 
-	auto& vec = mGame->GetDrops();
-
-	while (vec[(PuzSize + 2) * (row + dir_row * num) + (line + dir_line * num)]->GetKind() == mKindOfDrop) {
+	while (mGame->GetDrop(row + dir_row * num, line + dir_line * num)->GetKind() == mKindOfDrop) {
 		//他種ドロップまたは番兵であれば終了
 
 		num++;
 	}
 
-	return num;
+	return num - 1;
 }
 
 bool Drop::IsAligned()
@@ -137,7 +180,8 @@ bool Drop::IsAligned()
 
 		return false;
 	}
-
+	int rensa_row = 0;
+	int rensa_line = 0;
 	for (int dir_row = -1; dir_row < 2; dir_row++) {
 		for (int dir_line = -1; dir_line < 2; dir_line++) {
 
@@ -147,12 +191,23 @@ bool Drop::IsAligned()
 				continue;
 			}
 
-			if (CheckDir(mPositionOnBoard.x, mPositionOnBoard.y, dir_row, dir_line) >= 3) {
+			if (dir_row == 0) {
 
-				mAligned = true;
-				return true;
+				rensa_row += CheckDir(mPositionOnBoard.x, mPositionOnBoard.y, dir_row, dir_line);
 			}
+			if (dir_line == 0) {
+
+				rensa_line += CheckDir(mPositionOnBoard.x, mPositionOnBoard.y, dir_row, dir_line);
+			}
+
+			
 		}
+	}
+
+
+	if (rensa_row+1 >= 3 || rensa_line+1 >= 3) {
+
+		mAligned = true;
 	}
 
 	return false;

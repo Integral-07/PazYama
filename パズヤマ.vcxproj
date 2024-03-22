@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="Board.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Drop.h" />
     <ClInclude Include="fps.h" />
@@ -36,7 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Board.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Drop.cpp" />
     <ClCompile Include="fps.cpp" />

@@ -8,7 +8,7 @@ RectComponent::RectComponent(Actor* owner, int order)
 
 const VECTOR2& RectComponent::GetCenter() const
 {
-	return ( mOwner->GetPosition() ) / 2;
+	return mOwner->GetPosition() + mOwner->GetPosition() / 2;
 }
 
 bool Intersect(const RectComponent* a, const RectComponent* b)

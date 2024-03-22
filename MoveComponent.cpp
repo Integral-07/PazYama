@@ -3,7 +3,7 @@
 #include "fps.h"
 
 MoveComponent::MoveComponent(Actor* owner, int order)
-	: Component(owner, order), mDirection(0,0), mSpeed(0)
+	: Component(owner, order), mDirection(0,0), mSpeed(0.0f)
 {
 }
 

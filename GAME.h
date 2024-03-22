@@ -1,6 +1,9 @@
+#define debug true
+
 #pragma once
 #include <vector>
 #include "SpriteComponent.h"
+#include "VECTOR2.h"
 #include "Drop.h"
 
 #define GameWidth 1000
@@ -23,6 +26,14 @@ public:
 	void AddSprite(class SpriteComponent* sprite);
 	void RemoveSprite(class SpriteComponent* sprite);
 
+	enum GameState{
+
+		ETitle, EPre, EPuz, EComb, EPaused, 
+	};
+
+	GameState GetGameState() const { return mGameState; }
+	void SetGameState(GameState state) { mGameState = state; }
+
 private:
 	void ProcessInput();
 	void UpdateGame();
@@ -34,18 +45,31 @@ private:
 	bool mUpdatingActors;
 	std::vector<class Actor*> mPendingActors; //’Ç‰Á‚ð‰„Šú‚µ‚½Actor
 
-
+	GameState mGameState;
 public:
 	void AddScore(int score);
 
-	const std::vector<class Drop*>& GetDrops() const { return mDrops; }
-	Drop* GetDrop(int row, int line) const { return mDrops[(PuzSize + 2) * row + line]; }
-	void SetDrop(Drop* drop) { mDrops.emplace_back(drop); }
-	void DeleteDrop(Drop* drop);
+	int GetKind(int row, int line) const { return mDrops[row][line]; }
+	void SetKind(int row, int line, Drop::DROP_KIND kind) { mDrops[row][line] = kind; }
+
+	
+	Drop* GetAboveDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x - 1][(int)vec.y]; }
+	Drop* GetBelowDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x + 1][(int)vec.y]; }
+	Drop* GetRightDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x][(int)vec.y + 1]; }
+	Drop* GetLeftDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x][(int)vec.y - 1]; }
+	Drop* GetDrop(int row, int line) const { return mDropsArray[row][line]; }
+	void ExchangeDrops(const VECTOR2& a, const VECTOR2& b) {
+
+		Drop* temp = mDropsArray[(int)a.x][(int)a.y];
+		mDropsArray[(int)a.x][(int)a.y] = mDropsArray[(int)b.x][(int)b.y];
+		mDropsArray[(int)b.x][(int)b.y] = temp;
+	}
 
 private:
 	
 	int mScore;
-	std::vector<class Drop*> mDrops;
+
+	int mDrops[PuzSize + 2][PuzSize + 2];
+	Drop* mDropsArray[PuzSize + 2][PuzSize + 2];
 };
 

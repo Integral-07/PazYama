@@ -65,7 +65,7 @@ bool KeyClick(int KEY_INPUT_) {
 
 		return true;
 	}
-	{
+	else{
 		return false;
 	}
 }

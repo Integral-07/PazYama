@@ -9,9 +9,16 @@ public:
     Drop(class Game* game, int kind);
 
     void UpdateActor() override;
+    void ActorInput() override;
     void SetSpeed(float speed);
     void SetDirection(const VECTOR2& direction);
     void SetPositionOnBoard(const VECTOR2& pos) { mPositionOnBoard = pos; }
+    
+    //Drop* GetAboveDrop() const { return mAboveDrop; }
+    //void SetAboveDrop(class Drop* drop) { mAboveDrop = drop; }
+
+    //Drop* GetBelowDrop() const { return mBelowDrop; }
+    //void SetBelowDrop(class Drop* drop) { mBelowDrop = drop; }
 
 public:
     enum DROP_KIND {
@@ -32,8 +39,28 @@ public:
     DROP_KIND GetKind() const { return mKindOfDrop; }
     void SetKind(int kind) { mKindOfDrop = (DROP_KIND)kind; }
 
+    bool GetSelected() const { return mSelectedFlag; }
     RectComponent* GetRect() const { return mRect; }
-    
+    //void ReConnect(){
+    //
+    //    mAboveDrop->SetBelowDrop(mBelowDrop);
+    //    mBelowDrop->SetAboveDrop(mAboveDrop);
+    //
+    //    return;
+    //}
+
+    void SelectedSignal() { 
+
+        if (mSelectedFlag) {
+
+            mSelectedFlag = false;
+        }
+        else {
+
+            mSelectedFlag = true;
+        }
+    }
+
 
 private:
 
@@ -51,5 +78,10 @@ private:
     class RectComponent* mRect;
 
     class MoveComponent* mMc;
+
+    //class Drop* mAboveDrop = nullptr;
+    //class Drop* mBelowDrop = nullptr;
 };
 
+
+void ExchangeDrops(class Game* game, Drop* a, Drop* b);

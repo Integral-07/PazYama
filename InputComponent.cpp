@@ -10,6 +10,7 @@ void InputComponent::ProcessInput()
 {
 	VECTOR2 dir(0, 0);
 
+
 	if (KeyDown(KEY_INPUT_UP)) {
 		
 		dir.y = -1;
@@ -22,11 +23,11 @@ void InputComponent::ProcessInput()
 
 	if (KeyDown(KEY_INPUT_LEFT)) {
 
-		dir.x = 1;
+		dir.x = -1;
 	}
 	else if (KeyDown(KEY_INPUT_RIGHT)) {
 
-		dir.x = -1;
+		dir.x = 1;
 	}
 
 	SetSpeed(0);

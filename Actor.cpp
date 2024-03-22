@@ -1,6 +1,7 @@
 #include "Actor.h"
 #include "Component.h"
 #include "Game.h"
+#include "Key.h"
 
 Actor::Actor(Game* game)
 	: mGame(game), mState(EActive), mScaleW(1.0f), mScaleH(1.0f)
