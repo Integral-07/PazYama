@@ -218,6 +218,26 @@ void Game::UpdateGame()
             delete actor;
         }
     }
+    
+    if(mGameState == EComb){
+
+        bool flag = true;
+        for (int i = 0; i < PuzSize + 2; i++) {
+            for (int j = 0;j < PuzSize + 2;j++) {
+
+                if (mDropsArray[i][j]->IsAligned()) {
+
+                    flag = false;
+                    break;
+                }
+            }
+        }
+
+        if (flag) {
+
+            mGameState = EPuz;
+        }
+    }
 }
 
 void Game::GenerateOutput()
@@ -232,7 +252,7 @@ void Game::GenerateOutput()
     for (int i = 0; i < PuzSize + 2; i++) {
         for (int j = 0;j < PuzSize + 2;j++) {
 
-            DrawFormatString(j * 30, i * 30, GetColor(0, 0, 0), "%d", mDrops[i][j]);
+            DrawFormatString(j * 30, i * 30, GetColor(0, 0, 0), "%d", mDropsArray[i][j]->GetKind());
         }
     }
 #endif

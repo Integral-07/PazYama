@@ -61,6 +61,7 @@ public:
         }
     }
 
+    bool IsAligned();
 
 private:
 
@@ -72,7 +73,6 @@ private:
     bool mAligned;
 
     int CheckDir(int row, int line, int dir_row, int dirline);
-    bool IsAligned();
 
 private:
     class RectComponent* mRect;

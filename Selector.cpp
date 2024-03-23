@@ -94,19 +94,19 @@ void Selector::ActorInput()
 	}
 	else if (KeyClick(KEY_INPUT_RETURN)){
 
-		if (mGame->GetDrop(mRow, mLine)->GetSelected()) {
+		if (mGame->GetDrop(VECTOR2(mRow, mLine))->GetSelected()) {
 
 
 			mSelected = nullptr;
 			
-			mGame->GetDrop(mRow, mLine)->SelectedSignal();
+			mGame->GetDrop(VECTOR2(mRow, mLine))->SelectedSignal();
 
 			mGame->SetGameState(Game::EComb);
 		}
 		else {
 
-			mSelected = mGame->GetDrop(mRow, mLine);
-			mGame->GetDrop(mRow, mLine)->SelectedSignal();
+			mSelected = mGame->GetDrop(VECTOR2(mRow, mLine));
+			mGame->GetDrop(VECTOR2(mRow, mLine))->SelectedSignal();
 		}
 
 	}

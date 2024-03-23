@@ -10,7 +10,7 @@
 #define GameHeight 1000
 #define GameColor 32
 #define GameTitle "ƒpƒYƒ„ƒ}"
-constexpr int PuzSize = 10;
+#define PuzSize = 10;
 
 class Game
 {
@@ -57,7 +57,8 @@ public:
 	Drop* GetBelowDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x + 1][(int)vec.y]; }
 	Drop* GetRightDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x][(int)vec.y + 1]; }
 	Drop* GetLeftDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x][(int)vec.y - 1]; }
-	Drop* GetDrop(int row, int line) const { return mDropsArray[row][line]; }
+	Drop* GetDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x][(int)vec.y]; }
+	void SetDrop(const VECTOR2& vec, Drop* drop) { mDropsArray[(int)vec.x][(int)vec.y] = drop; }
 	void ExchangeDrops(const VECTOR2& a, const VECTOR2& b) {
 
 		Drop* temp = mDropsArray[(int)a.x][(int)a.y];

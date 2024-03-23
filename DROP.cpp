@@ -108,18 +108,26 @@ void Drop::UpdateActor()
 	}
 
 
+	if (mKindOfDrop == NONE) {
+
+		SetState(EDead);
+	}
+
 	if (mGame->GetGameState() == Game::EComb) {
 
-		if (mAligned) {
 
-			SetState(EDead);
-			mGame->SetKind(mPositionOnBoard.x, mPositionOnBoard.y, NONE);
+		if (mAligned) {
+			//mGame->SetKind(mPositionOnBoard.x, mPositionOnBoard.y, NONE);
+			mGame->GetDrop(mPositionOnBoard)->SetKind(NONE);
+			mKindOfDrop = NONE;
 		}
+
 
 		if (!IsAligned()) {
 
-			mGame->SetGameState(Game::EPuz);
+			//mGame->SetGameState(Game::EPuz);
 		}
+
 
 	}
 
@@ -164,7 +172,12 @@ int Drop::CheckDir(int row, int line, int dir_row, int dir_line)
 {
 	int num = 1;
 
-	while (mGame->GetDrop(row + dir_row * num, line + dir_line * num)->GetKind() == mKindOfDrop) {
+	if (mGame->GetDrop(VECTOR2(row + dir_row * num, line + dir_line * num))->GetKind() == NONE) {
+
+		return 0;
+	}
+
+	while (mGame->GetDrop(VECTOR2(row + dir_row * num, line + dir_line * num))->GetKind() == mKindOfDrop) {
 		//他種ドロップまたは番兵であれば終了
 
 		num++;
