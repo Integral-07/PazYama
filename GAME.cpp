@@ -214,14 +214,17 @@ void Game::UpdateGame()
         */
         //DrawFormatString(10, 10, GetColor(0, 255, 0), "%d", mGameState);
 
-        if (KeyDown(KEY_INPUT_SPACE)) {
+        if (KeyClick(KEY_INPUT_SPACE)) {
 
             mGameState = EFall;
         }
     }
     else if (mGameState == EFall) {
 
-        //mGameState = EPuz;
+        if (KeyClick(KEY_INPUT_SPACE)) {
+
+            mGameState = EPuz;
+        }
     }
 }
 

@@ -64,7 +64,7 @@ public:
     bool GetAlignedFlag() const { return mAligned; }
     void SetAlignedFlag(bool flag) { mAligned = flag; }
 
-    void GenerateNewDrop(int line);
+    void ReplaceNewDrop();
 
 private:
 

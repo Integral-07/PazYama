@@ -54,7 +54,11 @@ void Drop::UpdateActor()
 			&& mKindOfDrop != NONE) {
 
 			ExchangeDrops(mGame, this, mGame->GetBelowDrop(mPositionOnBoard));
-		} 
+		}
+		else if (mKindOfDrop == NONE && mGame->GetAboveDrop(mPositionOnBoard)->GetKind() == SENTINEL){
+
+			ReplaceNewDrop();
+		}
 	}
 	
 
@@ -199,14 +203,34 @@ bool Drop::IsAligned()
 	return false;
 }
 
-void Drop::GenerateNewDrop(int line)
+void Drop::ReplaceNewDrop()
 {
-	srand(time(NULL));
 	int kind = rand() % NUM_DROPS;
 
-	auto a = new Drop(mGame, kind);
-	a->SetPosition(VECTOR2(mPosition.x, 0));
-	a->SetPositionOnBoard(VECTOR2(0, mPositionOnBoard.y));
+	SetKind(kind);
+	//mGame->GetDrop(mPositionOnBoard)->SetKind(kind);
+
+
+	switch ((DROP_KIND)kind) {
+	case GRAPE:
+		mSc->SetImage(LoadGraph("Assets\\drop00.jpeg"));
+		break;
+	case PEACH:
+		mSc->SetImage(LoadGraph("Assets\\drop01.jpeg"));
+		break;
+	case FUJI:
+		mSc->SetImage(LoadGraph("Assets\\drop02.jpeg"));
+		break;
+	case CRYSTAL:
+		mSc->SetImage(LoadGraph("Assets\\drop03.jpeg"));
+		break;
+	case TEMP1:
+		mSc->SetImage(LoadGraph("Assets\\drop04.jpeg"));
+		break;
+	case TEMP2:
+		mSc->SetImage(LoadGraph("Assets\\drop05.jpeg"));
+		break;
+	}
 }
 
 
