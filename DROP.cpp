@@ -53,13 +53,10 @@ void Drop::UpdateActor()
 			&& mGame->GetBelowDrop(mPositionOnBoard)->GetKind() == NONE
 			&& mKindOfDrop != NONE) {
 
-		
 			ExchangeDrops(mGame, this, mGame->GetBelowDrop(mPositionOnBoard));
-			mGame->ExchangeDrops(mPositionOnBoard, VECTOR2(mPositionOnBoard.x + 1, mPositionOnBoard.y));
-			
-		}
-		
+		} 
 	}
+	
 
 	if (mSelectedFlag) {
 
@@ -78,8 +75,8 @@ void Drop::UpdateActor()
 	if (mGame->GetGameState() == Game::EComb) {
 
 		if (mAligned) {
-			//mGame->SetKind(mPositionOnBoard.x, mPositionOnBoard.y, NONE);
-			//mAligned = false;
+
+			mAligned = false;
 			mGame->GetDrop(mPositionOnBoard)->SetKind(NONE);
 			mKindOfDrop = NONE;
 		
@@ -200,6 +197,15 @@ bool Drop::IsAligned()
 	}
 
 	return false;
+}
+
+void Drop::GenerateNewDrop(int line)
+{
+	int kind = rand() % NUM_DROPS;
+
+	auto a = new Drop(mGame, kind);
+	a->SetPosition(VECTOR2(mPosition.x, 0));
+	a->SetPositionOnBoard(VECTOR2(0, mPositionOnBoard.y));
 }
 
 

@@ -48,29 +48,6 @@ bool Game::Initialize()
         }
     }
 
-    /*
-    for (auto iter = temp_drop.begin(); iter != temp_drop.end(); iter++) {
-
-
-        if ((*iter)->GetPositionOnBoard().x == 0) {
-
-            (*iter)->SetAboveDrop(nullptr);
-            (*iter)->SetBelowDrop(*(iter + PuzSize + 1));
-        }
-        else if ((*iter)->GetPositionOnBoard().x == PuzSize + 1) {
-
-            (*iter)->SetAboveDrop(*(iter - PuzSize - 1));
-            (*iter)->SetBelowDrop(nullptr);
-        }
-        else {
-
-            (*iter)->SetAboveDrop(*(iter - PuzSize - 1));
-            (*iter)->SetBelowDrop(*(iter + PuzSize + 1));
-        }
-
-    }
-    */
-
     
 
     auto sr = new Selector(this);
@@ -239,13 +216,12 @@ void Game::UpdateGame()
 
         if (KeyDown(KEY_INPUT_SPACE)) {
 
-            WaitTimer(100);
             mGameState = EFall;
         }
     }
     else if (mGameState == EFall) {
 
-            //mGameState = EPuz;
+        //mGameState = EPuz;
     }
 }
 

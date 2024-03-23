@@ -10,8 +10,7 @@ public:
 
     void UpdateActor() override;
     void ActorInput() override;
-    void SetSpeed(float speed);
-    void SetDirection(const VECTOR2& direction);
+
     void SetPositionOnBoard(const VECTOR2& pos) { mPositionOnBoard = pos; }
     
     //Drop* GetAboveDrop() const { return mAboveDrop; }
@@ -28,7 +27,7 @@ public:
         PEACH,     //ピンク
         FUJI,      //青
         CRYSTAL,   //白
-        TEMP1,     //
+        TEMP1,     //緑
         TEMP2,     //
         NUM_DROPS, //ドロップの個数
 
@@ -64,6 +63,8 @@ public:
     bool IsAligned();
     bool GetAlignedFlag() const { return mAligned; }
     void SetAlignedFlag(bool flag) { mAligned = flag; }
+
+    void GenerateNewDrop(int line);
 
 private:
 
