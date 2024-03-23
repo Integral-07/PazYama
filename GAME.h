@@ -10,7 +10,7 @@
 #define GameHeight 1000
 #define GameColor 32
 #define GameTitle "ƒpƒYƒ„ƒ}"
-#define PuzSize = 10;
+constexpr int PuzSize = 10;
 
 class Game
 {

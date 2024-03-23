@@ -54,45 +54,18 @@ Drop::Drop(Game* game, int kind)
 
 void Drop::UpdateActor()
 {
-	/*
-	if (mKindOfDrop != SENTINEL && mGame->GetKind(mPositionOnBoard.x + 1, mPositionOnBoard.y) == NONE) {
-
-		mGame->SetKind(mPositionOnBoard.x, mPositionOnBoard.y, NONE); //自分の今いる行列をNONEにする
-		mMc->SetSpeed(300.0f);
-		if (Intersect(mRect, mBelowDrop->GetRect())) {
-
-			mMc->SetSpeed(0.0f);
-			mGame->SetKind(mBelowDrop->GetPositionOnBoard().x - 1, mPositionOnBoard.y, mKindOfDrop);
-			
-		}
+	if (mKindOfDrop != SENTINEL && mGame->GetBelowDrop(mPositionOnBoard)->GetKind() == NONE) {
+		/*
+		SetPositionOnBoard(VECTOR2(mPositionOnBoard.x + 1, mPositionOnBoard.y)); 
+		SetPosition(VECTOR2(mPosition.x + mScaleH, mPosition.y)); 
+		
+		mGame->GetDrop(mPositionOnBoard)->SetKind(NONE);
+		mGame->GetDrop(VECTOR2(mPositionOnBoard.x + 1, mPositionOnBoard.y))->SetKind(mKindOfDrop);
+		*/
+	
+		ExchangeDrops(mGame, this, mGame->GetBelowDrop(mPositionOnBoard));
+		mGame->ExchangeDrops(mPositionOnBoard,  VECTOR2(mPositionOnBoard.x + 1, mPositionOnBoard.y));
 	}
-	if (mFallFlag) {
-
-		mMc->SetSpeed(100);
-		mMc->SetDirection(VECTOR2(0, 1));
-
-		//これより前にmDropsの更新はしておくこと
-		auto& vec = mGame->GetDrops();
-		int min_row = 1000;
-		Drop* min_drop = new Drop(mGame, SENTINEL);
-		for (auto iter = vec.begin(); iter != vec.end(); iter++) {
-
-			if ((*iter)->GetPosition().y == mPosition.y
-				&& (*iter)->GetPosition().x < mPosition.x) {
-				//列が同じで自分以下の行
-
-				min_row < (*iter)->GetPosition().x ? NULL : min_drop = *iter;
-			}
-		}
-
-
-		if (Intersect(mRect, min_drop->GetRect())) {
-
-			mMc->SetSpeed(0);
-			mFallFlag = false;
-		}
-	}
-	*/
 
 	if (mSelectedFlag) {
 
