@@ -201,6 +201,7 @@ bool Drop::IsAligned()
 
 void Drop::GenerateNewDrop(int line)
 {
+	srand(time(NULL));
 	int kind = rand() % NUM_DROPS;
 
 	auto a = new Drop(mGame, kind);
