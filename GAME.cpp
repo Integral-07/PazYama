@@ -183,7 +183,7 @@ void Game::UpdateGame()
 {
     fps::setDeltaTime();
 
-    if (mGameState == EPuz || mGameState == EComb) {
+    if (mGameState == EPuz || mGameState == EComb || mGameState == EFall) {
 
 
         mUpdatingActors = true;
@@ -220,23 +220,32 @@ void Game::UpdateGame()
     }
     
     if(mGameState == EComb){
-
+        /*
         bool flag = true;
         for (int i = 0; i < PuzSize + 2; i++) {
             for (int j = 0;j < PuzSize + 2;j++) {
 
-                if (mDropsArray[i][j]->IsAligned()) {
+                if (mDropsArray[i][j]->GetAlignedFlag() 
+                    && mDropsArray[i][j]->GetKind() != Drop::NONE) {
 
+                    //mDropsArray[i][j]->SetAlignedFlag(false);
                     flag = false;
                     break;
                 }
             }
         }
+        */
+        //DrawFormatString(10, 10, GetColor(0, 255, 0), "%d", mGameState);
 
-        if (flag) {
+        if (KeyDown(KEY_INPUT_SPACE)) {
 
-            mGameState = EPuz;
+            WaitTimer(100);
+            mGameState = EFall;
         }
+    }
+    else if (mGameState == EFall) {
+
+            //mGameState = EPuz;
     }
 }
 
@@ -252,7 +261,7 @@ void Game::GenerateOutput()
     for (int i = 0; i < PuzSize + 2; i++) {
         for (int j = 0;j < PuzSize + 2;j++) {
 
-            DrawFormatString(j * 30, i * 30, GetColor(0, 0, 0), "%d", mDropsArray[i][j]->GetKind());
+            DrawFormatString(j * 30, i * 30, GetColor(0, 0, 0), "%d", (int)mDropsArray[i][j]->GetKind());
         }
     }
 #endif

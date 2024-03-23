@@ -15,12 +15,13 @@ SpriteComponent::~SpriteComponent()
 }
 
 void SpriteComponent::Draw()
-{
+{	
+
 	VECTOR2 pos = mOwner->GetPosition();
 	float scaleW = mOwner->GetScaleW();
 	float scaleH = mOwner->GetScaleH();
 
-	DrawExtendGraph(pos.x, pos.y, 
+	DrawExtendGraph(pos.x, pos.y,
 		pos.x + scaleW, pos.y + scaleH, mImg, true);
 }
 

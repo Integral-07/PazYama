@@ -106,7 +106,7 @@ void Selector::ActorInput()
 		else {
 
 			mSelected = mGame->GetDrop(VECTOR2(mRow, mLine));
-			mGame->GetDrop(VECTOR2(mRow, mLine))->SelectedSignal();
+			mSelected->SelectedSignal();
 		}
 
 	}

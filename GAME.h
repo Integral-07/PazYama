@@ -10,7 +10,7 @@
 #define GameHeight 1000
 #define GameColor 32
 #define GameTitle "ƒpƒYƒ„ƒ}"
-constexpr int PuzSize = 10;
+constexpr int PuzSize = 5;
 
 class Game
 {
@@ -28,7 +28,7 @@ public:
 
 	enum GameState{
 
-		ETitle, EPre, EPuz, EComb, EPaused, 
+		ETitle, EPre, EPuz, EComb, EFall, EPaused, 
 	};
 
 	GameState GetGameState() const { return mGameState; }

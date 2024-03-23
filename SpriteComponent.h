@@ -14,6 +14,7 @@ public:
 
 private:
 
+
     int mImg;
     int mDrawOrder;
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include "Actor.h"
-#include "RectComponent.h"
+#include "SpriteComponent.h"
 
 class Drop :
     public Actor
@@ -40,7 +40,7 @@ public:
     void SetKind(int kind) { mKindOfDrop = (DROP_KIND)kind; }
 
     bool GetSelected() const { return mSelectedFlag; }
-    RectComponent* GetRect() const { return mRect; }
+
     //void ReConnect(){
     //
     //    mAboveDrop->SetBelowDrop(mBelowDrop);
@@ -62,6 +62,8 @@ public:
     }
 
     bool IsAligned();
+    bool GetAlignedFlag() const { return mAligned; }
+    void SetAlignedFlag(bool flag) { mAligned = flag; }
 
 private:
 
@@ -71,13 +73,13 @@ private:
     bool mSelectedFlag;
     bool mFallFlag;
     bool mAligned;
+    bool mOldAligned;
 
     int CheckDir(int row, int line, int dir_row, int dirline);
+    int CheckNone(int row, int line, int dir_row, int dirline);
 
 private:
-    class RectComponent* mRect;
-
-    class MoveComponent* mMc;
+    class SpriteComponent* mSc;
 
     //class Drop* mAboveDrop = nullptr;
     //class Drop* mBelowDrop = nullptr;
