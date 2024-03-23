@@ -29,7 +29,7 @@ bool Game::Initialize()
                 auto a = new Drop(this, Drop::SENTINEL);
                 a->SetPosition(VECTOR2(a->GetScaleW() * (j + 1), a->GetScaleH() * (i + 1)));
                 a->SetPositionOnBoard(VECTOR2(i, j));
-                mDrops[i][j] = Drop::SENTINEL;
+                
                 mDropsArray[i][j] = a;
                 temp_drop.emplace_back(a);
 
@@ -42,7 +42,7 @@ bool Game::Initialize()
             a->SetPositionOnBoard(VECTOR2(i, j));
             //a->SetDirection(VECTOR2(0, 1));
             //a->SetSpeed(100);
-            mDrops[i][j] = kind;
+            
             mDropsArray[i][j] = a;
             temp_drop.emplace_back(a);
         }
@@ -69,6 +69,8 @@ void Game::RunLoop()
         GenerateOutput();
 
         KeyUpdate();
+
+        WaitTimer(GameSpeed);
     }
 }
 
@@ -141,7 +143,7 @@ void Game::ProcessInput()
 
         mUpdatingActors = false;
 
-        KeyUpdate();
+
         if (KeyDown(KEY_INPUT_ESCAPE)) {
 
             mGameState = EPaused;
@@ -197,13 +199,12 @@ void Game::UpdateGame()
     }
     
     if(mGameState == EComb){
-        /*
+        
         bool flag = true;
         for (int i = 0; i < PuzSize + 2; i++) {
             for (int j = 0;j < PuzSize + 2;j++) {
 
-                if (mDropsArray[i][j]->GetAlignedFlag() 
-                    && mDropsArray[i][j]->GetKind() != Drop::NONE) {
+                if (mDropsArray[i][j]->GetAlignedFlag()) {
 
                     //mDropsArray[i][j]->SetAlignedFlag(false);
                     flag = false;
@@ -211,18 +212,40 @@ void Game::UpdateGame()
                 }
             }
         }
-        */
-        //DrawFormatString(10, 10, GetColor(0, 255, 0), "%d", mGameState);
+       
 
-        if (KeyClick(KEY_INPUT_SPACE)) {
+        if (flag) {
 
             mGameState = EFall;
         }
     }
     else if (mGameState == EFall) {
 
-        if (KeyClick(KEY_INPUT_SPACE)) {
+        bool flag = true;
+        for (int i = 0;i < PuzSize + 2;i++) {
+            for (int j = 0; j < PuzSize + 2; j++) {
 
+                if (mDropsArray[i][j]->GetKind() == Drop::NONE) {
+
+                    flag = false;
+                    break;
+                }
+            }
+        }
+
+        if (flag) {
+
+            for (int i = 0;i < PuzSize + 2;i++) {
+                for (int j = 0; j < PuzSize + 2; j++) {
+
+                    if (mDropsArray[i][j]->IsAligned()) {
+                        
+                        mGameState = EComb;
+                        return;
+                    }
+                }
+            }
+            
             mGameState = EPuz;
         }
     }
@@ -244,6 +267,7 @@ void Game::GenerateOutput()
         }
     }
 #endif
+
     ScreenFlip();
 }
 

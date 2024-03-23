@@ -10,7 +10,8 @@
 #define GameHeight 1000
 #define GameColor 32
 #define GameTitle "ƒpƒYƒ„ƒ}"
-constexpr int PuzSize = 5;
+#define GameSpeed 90
+constexpr int PuzSize = 10;
 
 class Game
 {
@@ -49,9 +50,6 @@ private:
 public:
 	void AddScore(int score);
 
-	int GetKind(int row, int line) const { return mDrops[row][line]; }
-	void SetKind(int row, int line, Drop::DROP_KIND kind) { mDrops[row][line] = kind; }
-
 	
 	Drop* GetAboveDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x - 1][(int)vec.y]; }
 	Drop* GetBelowDrop(const VECTOR2& vec) const { return mDropsArray[(int)vec.x + 1][(int)vec.y]; }
@@ -70,7 +68,6 @@ private:
 	
 	int mScore;
 
-	int mDrops[PuzSize + 2][PuzSize + 2];
 	Drop* mDropsArray[PuzSize + 2][PuzSize + 2];
 };
 

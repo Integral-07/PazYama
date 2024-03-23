@@ -17,18 +17,6 @@ Selector::Selector(class Game* game)
 	auto sc = new SpriteComponent(this, 200);
 	sc->SetImage(LoadGraph("Assets\\frame.jpeg"));
 	
-	/*
-	auto a = new MoveComponent(this);
-	a->SetSpeed(100.0f);
-	a->SetDirection(VECTOR2(1, 0));
-
-	mIc = new InputComponent(this);
-	mIc->SetMoveSpeed(300.0f);
-	*/
-
-	//mRc = new RectComponent(this, 120);
-	//mRc->SetHalfHeight(mScaleH/2);
-	//mRc->SetHalfWidth(mScaleW/2);
 }
 
 
@@ -36,7 +24,7 @@ void Selector::ActorInput()
 {
 	VECTOR2 dir = mPosition;
 
-	if (KeyClick(KEY_INPUT_UP)) {
+	if (KeyDown(KEY_INPUT_UP)) {
 
 		if (mRow - 1 >= 1) {
 
@@ -50,7 +38,7 @@ void Selector::ActorInput()
 			}
 		}
 	}
-	else if (KeyClick(KEY_INPUT_DOWN)) {
+	else if (KeyDown(KEY_INPUT_DOWN)) {
 
 		if (mRow + 1 <= PuzSize) {
 			
@@ -64,7 +52,7 @@ void Selector::ActorInput()
 			}
 		}
 	}
-	else if (KeyClick(KEY_INPUT_LEFT)) {
+	else if (KeyDown(KEY_INPUT_LEFT)) {
 
 		if (mLine - 1 >= 1) {
 
@@ -78,7 +66,7 @@ void Selector::ActorInput()
 			}
 		}
 	}
-	else if (KeyClick(KEY_INPUT_RIGHT)) {
+	else if (KeyDown(KEY_INPUT_RIGHT)) {
 
 		if (mLine + 1 <= PuzSize) {
 

@@ -54,6 +54,7 @@ void Drop::UpdateActor()
 			&& mKindOfDrop != NONE) {
 
 			ExchangeDrops(mGame, this, mGame->GetBelowDrop(mPositionOnBoard));
+			//WaitTimer(100);
 		}
 		else if (mKindOfDrop == NONE && mGame->GetAboveDrop(mPositionOnBoard)->GetKind() == SENTINEL){
 
@@ -88,7 +89,6 @@ void Drop::UpdateActor()
 		
 		if (mKindOfDrop == NONE) {
 
-			//SetState(EDead);
 			mSc->SetImage(LoadGraph("Assets\\panel.jpeg"));
 			mSc->Draw();
 		}
@@ -208,7 +208,7 @@ void Drop::ReplaceNewDrop()
 	int kind = rand() % NUM_DROPS;
 
 	SetKind(kind);
-	//mGame->GetDrop(mPositionOnBoard)->SetKind(kind);
+	mGame->GetDrop(mPositionOnBoard)->SetKind(kind);
 
 
 	switch ((DROP_KIND)kind) {
