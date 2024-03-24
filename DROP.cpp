@@ -32,10 +32,10 @@ Drop::Drop(Game* game, int kind)
 	case CRYSTAL:
 		mSc->SetImage(LoadGraph("Assets\\drop03.jpeg"));
 		break;
-	case TEMP1:
+	case PREFECTURE:
 		mSc->SetImage(LoadGraph("Assets\\drop04.jpeg"));
 		break;
-	case TEMP2:
+	case HOTO:
 		mSc->SetImage(LoadGraph("Assets\\drop05.jpeg"));
 		break;
 	case SENTINEL:
@@ -84,12 +84,12 @@ void Drop::UpdateActor()
 			mAligned = false;
 			mGame->GetDrop(mPositionOnBoard)->SetKind(NONE);
 			mKindOfDrop = NONE;
-		
+			mGame->AddScore(10);
 		}
 		
 		if (mKindOfDrop == NONE) {
 
-			mSc->SetImage(LoadGraph("Assets\\panel.jpeg"));
+			mSc->SetImage(LoadGraph("Assets\\tile.jpeg"));
 			mSc->Draw();
 		}
 
@@ -224,10 +224,10 @@ void Drop::ReplaceNewDrop()
 	case CRYSTAL:
 		mSc->SetImage(LoadGraph("Assets\\drop03.jpeg"));
 		break;
-	case TEMP1:
+	case PREFECTURE:
 		mSc->SetImage(LoadGraph("Assets\\drop04.jpeg"));
 		break;
-	case TEMP2:
+	case HOTO:
 		mSc->SetImage(LoadGraph("Assets\\drop05.jpeg"));
 		break;
 	}

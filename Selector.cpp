@@ -12,7 +12,7 @@ Selector::Selector(class Game* game)
 {
 	SetScaleW(70);
 	SetScaleH(70);
-	SetPosition(VECTOR2(mScaleW * mRow * 2, mScaleH * mLine * 2));
+	SetPosition(VECTOR2(PuzPosition.x + mScaleW * mRow * 2, PuzPosition.y + mScaleH * mLine * 2));
 
 	auto sc = new SpriteComponent(this, 200);
 	sc->SetImage(LoadGraph("Assets\\frame.jpeg"));

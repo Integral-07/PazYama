@@ -27,8 +27,8 @@ public:
         PEACH,     //ピンク
         FUJI,      //青
         CRYSTAL,   //白
-        TEMP1,     //緑
-        TEMP2,     //
+        PREFECTURE,//緑
+        HOTO,
         NUM_DROPS, //ドロップの個数
 
         SENTINEL   //番兵

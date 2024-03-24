@@ -1,4 +1,4 @@
-#define debug true
+#define debug false
 
 #pragma once
 #include <vector>
@@ -6,12 +6,14 @@
 #include "VECTOR2.h"
 #include "Drop.h"
 
-#define GameWidth 1000
+#define GameWidth 1010
 #define GameHeight 1000
 #define GameColor 32
 #define GameTitle "ƒpƒYƒ„ƒ}"
-#define GameSpeed 90
-constexpr int PuzSize = 10;
+#define PuzPosition VECTOR2(100,300)
+#define GameTimeLimit 5000 //ms
+#define GameSpeed 80
+constexpr int PuzSize = 7;
 
 class Game
 {
@@ -29,7 +31,7 @@ public:
 
 	enum GameState{
 
-		ETitle, EPre, EPuz, EComb, EFall, EPaused, 
+		ETitle, EPre, EPuz, EComb, EFall, EPaused, EResult 
 	};
 
 	GameState GetGameState() const { return mGameState; }
@@ -66,7 +68,10 @@ public:
 
 private:
 	
-	int mScore;
+	int mScore = 0;
+
+	float mStartTime;
+
 
 	Drop* mDropsArray[PuzSize + 2][PuzSize + 2];
 };

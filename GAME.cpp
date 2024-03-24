@@ -7,6 +7,7 @@
 #include "Selector.h"
 #include <random>
 #include "Key.h"
+#include "BackGround.h"
 
 bool Game::Initialize()
 {
@@ -27,7 +28,7 @@ bool Game::Initialize()
             if (i == 0 || i == PuzSize + 1 || j == 0 || j == PuzSize + 1) {
 
                 auto a = new Drop(this, Drop::SENTINEL);
-                a->SetPosition(VECTOR2(a->GetScaleW() * (j + 1), a->GetScaleH() * (i + 1)));
+                a->SetPosition(VECTOR2(PuzPosition.x + a->GetScaleW() * (j + 1), PuzPosition.y + a->GetScaleH() * (i + 1)));
                 a->SetPositionOnBoard(VECTOR2(i, j));
                 
                 mDropsArray[i][j] = a;
@@ -38,7 +39,7 @@ bool Game::Initialize()
 
             int kind = rand() % Drop::NUM_DROPS;
             a = new Drop(this, kind);
-            a->SetPosition(VECTOR2(a->GetScaleW() * (j + 1), a->GetScaleH() * (i + 1)));
+            a->SetPosition(VECTOR2(PuzPosition.x + a->GetScaleW() * (j + 1), PuzPosition.y + a->GetScaleH() * (i + 1)));
             a->SetPositionOnBoard(VECTOR2(i, j));
             //a->SetDirection(VECTOR2(0, 1));
             //a->SetSpeed(100);
@@ -52,10 +53,25 @@ bool Game::Initialize()
 
     auto sr = new Selector(this);
 
-    mGameState = EPuz;//ETitle;
+    auto bg = new BackGround(this);
+    bg->SetPosition(VECTOR2(0, 0));
+    bg->SetScaleW(GameWidth);
+    bg->SetScaleH(PuzPosition.y + 70);
+    bg->SetImage(LoadGraph("Assets\\back.jpeg"));
+
+    auto tile = new BackGround(this);
+    tile->SetPosition(VECTOR2(0, PuzPosition.y + 70));
+    tile->SetScaleW(GameWidth);
+    tile->SetScaleH(GameHeight - bg->GetScaleH());
+    tile->SetImage(LoadGraph("Assets\\tile.jpeg"));
+
+    mGameState = ETitle;
 
     fps::initDeltaTime();
     KeyInit();
+
+    PlaySoundFile("Assets\\bgm_title.mp3", DX_PLAYTYPE_LOOP);
+    //mStartTime = GetNowCount();
 
     return true;
 }
@@ -132,6 +148,7 @@ void Game::RemoveSprite(SpriteComponent* sprite)
 
 void Game::ProcessInput()
 {
+
     if (mGameState == EPuz) {
 
 
@@ -146,14 +163,27 @@ void Game::ProcessInput()
 
         if (KeyDown(KEY_INPUT_ESCAPE)) {
 
-            mGameState = EPaused;
+            mScore = 0;
+            mGameState = ETitle;
+            StopSoundFile();
+            PlaySoundFile("Assets\\bgm_title.mp3", DX_PLAYTYPE_LOOP);
         }
     }
-    else {
-
-        if (KeyDown(KEY_INPUT_ESCAPE)) {
+    else if (mGameState == ETitle) {
+    
+        if (KeyDown(KEY_INPUT_SPACE)) {
 
             mGameState = EPuz;
+            StopSoundFile();
+            PlaySoundFile("Assets\\bgm_play.mp3", DX_PLAYTYPE_LOOP);
+            mStartTime = GetNowCount();
+        }
+    }
+    else if (mGameState == EResult) {
+
+        if (KeyDown(KEY_INPUT_SPACE)) {
+
+            mGameState = ETitle;
         }
     }
 }
@@ -161,6 +191,16 @@ void Game::ProcessInput()
 void Game::UpdateGame()
 {
     fps::setDeltaTime();
+
+
+    //float now_time = GetNowCount();
+    //if (now_time - mStartTime > GameTimeLimit) {
+    //
+    //    mGameState = EResult;
+    //
+    //    StopSoundFile();
+    //    PlaySoundFile("Assets\\bgm_result.mp3", DX_PLAYTYPE_LOOP);
+    //}
 
     if (mGameState == EPuz || mGameState == EComb || mGameState == EFall) {
 
@@ -253,11 +293,26 @@ void Game::UpdateGame()
 
 void Game::GenerateOutput()
 {
+    if (mGameState == ETitle) {
+
+        DrawString(0, 0, "ƒpƒYƒ„ƒ}", GetColor(0, 255, 0));
+        SetFontSize(200);
+
+        return;
+    }
+    else if (mGameState == EResult) {
+
+        DrawString(0, 0, "Result", GetColor(0, 255, 0));
+        SetFontSize(200);
+    }
+
     for (auto sprite : mSprites) {
 
         sprite->Draw();
     }
 
+    DrawFormatString(0, 100, GetColor(255,255,255), "SCORE:%4d", mScore);
+    SetFontSize(200);
 #if debug true
     DrawBox(0,0,40*PuzSize, 40*PuzSize, GetColor(255,255,255), true);
     for (int i = 0; i < PuzSize + 2; i++) {
