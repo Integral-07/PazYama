@@ -12,12 +12,7 @@ public:
     void ActorInput() override;
 
     void SetPositionOnBoard(const VECTOR2& pos) { mPositionOnBoard = pos; }
-    
-    //Drop* GetAboveDrop() const { return mAboveDrop; }
-    //void SetAboveDrop(class Drop* drop) { mAboveDrop = drop; }
 
-    //Drop* GetBelowDrop() const { return mBelowDrop; }
-    //void SetBelowDrop(class Drop* drop) { mBelowDrop = drop; }
 
 public:
     enum DROP_KIND {
@@ -82,6 +77,7 @@ private:
 private:
     class SpriteComponent* mSc;
 
+    int mSound;
     //class Drop* mAboveDrop = nullptr;
     //class Drop* mBelowDrop = nullptr;
 };

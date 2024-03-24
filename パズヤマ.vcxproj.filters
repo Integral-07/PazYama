@@ -34,7 +34,9 @@
     <ClInclude Include="Selector.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BackGround.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -70,7 +72,9 @@
     <ClCompile Include="Selector.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="manager">

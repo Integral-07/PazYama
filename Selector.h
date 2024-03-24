@@ -14,12 +14,12 @@ public:
 
 private:
     
-    //InputComponent* mIc;
-    //RectComponent* mRc;
     Drop* mSelected = nullptr;
 
     int mRow = 1;
     int mLine = 1;
+
+    int mSoundSelect;
     
 };
 

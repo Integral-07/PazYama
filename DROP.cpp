@@ -43,6 +43,7 @@ Drop::Drop(Game* game, int kind)
 		break;
 	}
 
+	mSound = LoadSoundMem("Assets\\aligned.mp3");
 }
 
 void Drop::UpdateActor()
@@ -91,6 +92,7 @@ void Drop::UpdateActor()
 
 			mSc->SetImage(LoadGraph("Assets\\tile.jpeg"));
 			mSc->Draw();
+			PlaySoundMem(mSound, DX_PLAYTYPE_BACK, TRUE);
 		}
 
 		IsAligned();
@@ -198,6 +200,7 @@ bool Drop::IsAligned()
 
 		mAligned = true;
 		mGame->GetDrop(mPositionOnBoard)->SetAlignedFlag(true);
+		return true;
 	}
 
 	return false;

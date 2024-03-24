@@ -17,6 +17,7 @@ Selector::Selector(class Game* game)
 	auto sc = new SpriteComponent(this, 200);
 	sc->SetImage(LoadGraph("Assets\\frame.jpeg"));
 	
+	mSoundSelect = LoadSoundMem("Assets\\selected.mp3");
 }
 
 
@@ -97,6 +98,7 @@ void Selector::ActorInput()
 			mSelected->SelectedSignal();
 		}
 
+		PlaySoundMem(mSoundSelect, DX_PLAYTYPE_BACK, TRUE);
 	}
 
 	mPosition = dir;

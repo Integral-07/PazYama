@@ -69,6 +69,7 @@ public:
 private:
 	
 	int mScore = 0;
+	int mTitleBackHandle;
 
 	float mStartTime;
 

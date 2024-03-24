@@ -65,7 +65,26 @@ bool Game::Initialize()
     tile->SetScaleH(GameHeight - bg->GetScaleH());
     tile->SetImage(LoadGraph("Assets\\tile.jpeg"));
 
+    /*
+ALIGNED:
+    for (int i = 0;i < PuzSize + 2;i++) {
+        for (int j = 0; j < PuzSize + 2; j++) {
+
+            if (mDropsArray[i][j]->IsAligned()) {
+
+                mDropsArray[i][j]->SetKind((Drop::DROP_KIND)rand() % Drop::NUM_DROPS);
+                mDropsArray[i][j]->SetAlignedFlag(false);
+                goto ALIGNED;
+            }
+        }
+    }
+
+    */
+
+
+
     mGameState = ETitle;
+    mTitleBackHandle = LoadGraph("Assets\\title_back.jpeg");
 
     fps::initDeltaTime();
     KeyInit();
@@ -295,9 +314,13 @@ void Game::GenerateOutput()
 {
     if (mGameState == ETitle) {
 
-        DrawString(0, 0, "パズヤマ", GetColor(0, 255, 0));
+        DrawExtendGraph(0, 0, GameWidth, GameHeight,mTitleBackHandle, TRUE);
         SetFontSize(200);
+        DrawString(100, 50, "パズヤマ", GetColor(136, 217, 71));
+        SetFontSize(60);
+        DrawString(180, 300, "Puzzle And Yamanashi", GetColor(136, 217, 71));
 
+        DrawString(260, 800, "PRESS SPACE KEY", GetColor(136, 217, 71));
         return;
     }
     else if (mGameState == EResult) {
@@ -311,14 +334,16 @@ void Game::GenerateOutput()
         sprite->Draw();
     }
 
-    DrawFormatString(0, 100, GetColor(255,255,255), "SCORE:%4d", mScore);
+    DrawFormatString(0, 140, GetColor(50,50,50), "SCORE:%4d", mScore);
     SetFontSize(200);
 #if debug true
+
+    SetFontSize(50);
     DrawBox(0,0,40*PuzSize, 40*PuzSize, GetColor(255,255,255), true);
     for (int i = 0; i < PuzSize + 2; i++) {
         for (int j = 0;j < PuzSize + 2;j++) {
 
-            DrawFormatString(j * 30, i * 30, GetColor(0, 0, 0), "%d", (int)mDropsArray[i][j]->GetKind());
+            DrawFormatString(j * 30, i * 30, GetColor(0, 0, 0), "%d", (int)mDropsArray[i][j]->GetAlignedFlag());
         }
     }
 #endif
